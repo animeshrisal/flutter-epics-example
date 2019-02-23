@@ -1,4 +1,4 @@
-package com.example.pixelstationmobile;
+package com.example.flutterepicsexample;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

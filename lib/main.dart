@@ -4,9 +4,9 @@ import './models/AppState.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_epics/redux_epics.dart';
-import 'package:pixelstation_mobile/epics/counterEpic.dart';
-import 'package:pixelstation_mobile/actions/CounterAction.dart';
-import 'package:pixelstation_mobile/models/Counter.dart';
+import 'package:flutter_epics_example/epics/counterEpic.dart';
+import 'package:flutter_epics_example/actions/CounterAction.dart';
+import 'package:flutter_epics_example/models/Counter.dart';
 
 void main() => runApp(MyApp());
 
@@ -38,9 +38,6 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Hello World")
-      ),
       body: new Center(
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,

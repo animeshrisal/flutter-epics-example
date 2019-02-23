@@ -1,4 +1,4 @@
-# pixelstation_mobile
+# Flutter Epics Example
 
 A new Flutter project.
 

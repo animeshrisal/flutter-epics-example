@@ -1,5 +1,5 @@
 import 'package:redux_epics/redux_epics.dart';
-import 'package:pixelstation_mobile/actions/CounterAction.dart';
+import 'package:flutter_epics_example/actions/CounterAction.dart';
 import '../models/AppState.dart';
 
 Stream<dynamic> counterEpic(

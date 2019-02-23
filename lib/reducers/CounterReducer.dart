@@ -1,4 +1,4 @@
-import "package:pixelstation_mobile/actions/CounterAction.dart";
+import "package:flutter_epics_example/actions/CounterAction.dart";
 import "../models/Counter.dart";
 
 Counter counterReducer(Counter state, action) {

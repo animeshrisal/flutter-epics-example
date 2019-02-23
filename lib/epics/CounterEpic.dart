@@ -9,7 +9,8 @@ Stream<dynamic> counterEpic(
 ) async* {
   await for(var action in actions){
     if(action is IncreaseCounter){
-      new IncreaseCounter();
+      debugPrint("AAAA");
+      yield IncreaseCounter();
     }
   }
 }

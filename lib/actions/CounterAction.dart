@@ -1,5 +1,5 @@
 class IncreaseCounter {
-  int _id = 0;
+  static int _id;
 
   IncreaseCounter() {
     _id++;
@@ -9,7 +9,7 @@ class IncreaseCounter {
 }
 
 class DecreaseCounter {
-  int _id = 0;
+  static int _id ;
   DecreaseCounter() {
     _id--;
   }

@@ -1,57 +1,100 @@
 import 'package:flutter/material.dart';
+import './reducers/AppReducer.dart';
+import './models/AppState.dart';
+import 'package:redux/redux.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux_epics/redux_epics.dart';
+import 'package:pixelstation_mobile/epics/counterEpic.dart';
+import 'package:pixelstation_mobile/actions/CounterAction.dart';
+import 'package:pixelstation_mobile/models/Counter.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
+  final Store<AppState> store = Store<AppState>(
+    appReducer,
+    initialState: AppState.initialState(),
+    middleware: [EpicMiddleware<AppState>(counterEpic)]
+  );
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Five',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Five'),
+    return new StoreProvider(
+      store: store,
+      child: MaterialApp(
+        title: 'Five',
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('Five'),
+          ),
+          body: MyHomePage(),
         ),
-        body: MyCustomForm(),
       ),
     );
   }
 }
 
-class MyCustomForm extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Hello World")
+      ),
+      body: new Center(
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                new Text(
+                  'You have pushed the button this many times:',
+                ),
+                new StoreConnector<AppState, _ViewModel>(
+                  converter: (store) => _ViewModel.create(store),
+                  builder: (context, _ViewModel viewModel) {
+                    return new Text(
+                      viewModel.counter.id.toString(),
+                      style: Theme.of(context).textTheme.display1,
+                    );
+                  },
+                )
+              ],
+            ),
+          ),
+      floatingActionButton: StoreConnector<AppState, _ViewModel>(
+        converter: (store) => _ViewModel.create(store),
+        builder: (context, _ViewModel viewModel) => FloatingActionButton(
+          child: Text("Add"),
+          onPressed: () => viewModel.onIncrement()
+        ),
+      )
+    );
   }
 }
 
-class MyCustomFormState extends State<MyCustomForm> {
-  final _formKey = GlobalKey<FormState>();
+class _ViewModel{
+  final Counter counter;
+  final Function() onIncrement;
+  final Function() onDecrement;
+  
+  _ViewModel({
+    this.counter,
+    this.onDecrement,
+    this.onIncrement
+  });
 
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            validator: (value) {
-              if (value.isEmpty) return 'Please enter some text';
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: RaisedButton(
-              onPressed: () {
-                if (_formKey.currentState.validate())
-                  Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text('Processing Data')));
-              },
-              child: Text('Submit'),
-            ),
-          ),
-        ],
-      ),
+  factory _ViewModel.create(Store<AppState> store){
+    _onIncrement(){
+      store.dispatch(IncreaseCounter());
+    }
+
+    _onDecrement(){
+      store.dispatch(DecreaseCounter());
+    }
+
+    return _ViewModel(
+      counter: store.state.counterState,
+      onDecrement: _onDecrement,
+      onIncrement: _onIncrement
     );
   }
 }

@@ -4,7 +4,7 @@ import './models/AppState.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_epics/redux_epics.dart';
-import 'package:flutter_epics_example/epics/counterEpic.dart';
+import 'package:flutter_epics_example/epics/CounterEpic.dart';
 import 'package:flutter_epics_example/actions/CounterAction.dart';
 import 'package:flutter_epics_example/models/Counter.dart';
 
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   final Store<AppState> store = Store<AppState>(
     appReducer,
     initialState: AppState.initialState(),
-    middleware: [EpicMiddleware<AppState>(counterEpic)]
+    middleware: [EpicMiddleware<AppState>(combineEpics<AppState>([counterEpic]))]
   );
   @override
   Widget build(BuildContext context) {

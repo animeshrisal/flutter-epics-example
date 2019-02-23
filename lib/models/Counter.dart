@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class Counter {
-  final int id;
+  int id;
 
   Counter({@required this.id});
 

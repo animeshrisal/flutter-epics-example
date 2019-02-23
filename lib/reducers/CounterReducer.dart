@@ -3,11 +3,13 @@ import "../models/Counter.dart";
 
 Counter counterReducer(Counter state, action) {
   if (action is IncreaseCounter) {
-    return state.copyWith(id: action.id);
+    state.id++;
+    return state.copyWith();
   }
 
   if (action is DecreaseCounter) {
-    return state.copyWith(id: action.id);
+    state.id++;
+    return state.copyWith();
   }
 
   return state;

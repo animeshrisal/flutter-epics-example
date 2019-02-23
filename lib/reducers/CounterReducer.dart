@@ -8,7 +8,7 @@ Counter counterReducer(Counter state, action) {
   }
 
   if (action is DecreaseCounter) {
-    state.id++;
+    state.id--;
     return state.copyWith();
   }
 

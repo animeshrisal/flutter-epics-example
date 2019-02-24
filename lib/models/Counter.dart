@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+part 'Counter.g.dart';
+
+@JsonSerializable()
 class Counter {
   int id;
 
@@ -10,7 +13,7 @@ class Counter {
     return Counter(id: id ?? this.id);
   }
 
-  static Counter fromJson(dynamic json) => new Counter(id: json["id"] as int);
-
-  dynamic toJson() => {'id': id};
+  factory Counter.fromJson(Map<String, dynamic> json) =>
+      _$CounterFromJson(json);
+  Map<String, dynamic> toJson() => _$CounterToJson(this);
 }

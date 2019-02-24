@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart';
 import './Counter.dart';
-import 'package:json_annotation/json_annotation.dart';
-import 'dart:convert';
 
 class AppState {
   final Counter counterState;

@@ -2,7 +2,7 @@
 
 A new Flutter project which can work as a boiler plate to use redux and epics. Also contains dev tools that act similar to react native dev tools.
 
-Getting Started docs from https://github.com/AshishBhattarai/
+Getting Started docs by https://github.com/AshishBhattarai/
 
 ## Getting Started
 

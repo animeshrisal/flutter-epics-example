@@ -4,11 +4,9 @@ import '../models/AppState.dart';
 import 'package:flutter/foundation.dart';
 
 Stream<dynamic> counterEpic(
-  Stream<dynamic> actions,
-  EpicStore<AppState> store
-) async* {
-  await for(var action in actions){
-    if(action is IncreaseCounter){
+    Stream<dynamic> actions, EpicStore<AppState> store) async* {
+  await for (var action in actions) {
+    if (action is IncreaseCounter) {
       debugPrint("AAAA");
       yield DecreaseCounter();
     }

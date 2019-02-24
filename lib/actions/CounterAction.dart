@@ -1,7 +1,3 @@
-class IncreaseCounter {
+class IncreaseCounter {}
 
-}
-
-class DecreaseCounter {
-
-}
+class DecreaseCounter {}

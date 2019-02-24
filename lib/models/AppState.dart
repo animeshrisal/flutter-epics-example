@@ -1,6 +1,10 @@
 import 'package:flutter/foundation.dart';
 import './Counter.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'AppState.g.dart';
+
+@JsonSerializable()
 class AppState {
   final Counter counterState;
 
@@ -10,11 +14,12 @@ class AppState {
 
   static AppState fromJson(dynamic json) {
     if (json != null) {
-      return AppState(counterState: Counter.fromJson(json['counterState']));
+      //return AppState(counterState: Counter.fromJson(json['counterState']));
+      return _$AppStateFromJson(json);
     } else {
       return AppState.initialState();
     }
   }
 
-  dynamic toJson() => {'counterState': counterState.toJson()};
+  Map<String, dynamic> toJson() => _$AppStateToJson(this);
 }

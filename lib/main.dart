@@ -8,15 +8,24 @@ import 'package:flutter_epics_example/epics/CounterEpic.dart';
 import 'package:flutter_epics_example/actions/CounterAction.dart';
 import 'package:flutter_epics_example/models/Counter.dart';
 import './dev_tools_app.dart';
+import 'package:redux_persist/redux_persist.dart';
+import 'package:redux_persist_flutter/redux_persist_flutter.dart';
 
-void main() {
+void main() async {
   final appConfig = AppConfig();
   appConfig.title = "flutter-epics-example";
 
+  final persistor = Persistor<AppState>(
+      storage: FlutterStorage(),
+      serializer: JsonSerializer<AppState>(AppState.fromJson));
+
+  final initialState = await persistor.load();
+
   final appStoreConfig = AppStoreConfig<AppState>(appReducer,
-      initialState: AppState.initialState(),
+      initialState: initialState ?? AppState.initialState(),
       middleware: [
-        EpicMiddleware<AppState>(combineEpics<AppState>([counterEpic]))
+        EpicMiddleware<AppState>(combineEpics<AppState>([counterEpic])),
+        persistor.createMiddleware()
       ]);
 
   final app = DevToolsApp<AppState>(appStoreConfig, appConfig);

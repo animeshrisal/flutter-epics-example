@@ -7,27 +7,33 @@ import 'package:redux_epics/redux_epics.dart';
 import 'package:flutter_epics_example/epics/CounterEpic.dart';
 import 'package:flutter_epics_example/actions/CounterAction.dart';
 import 'package:flutter_epics_example/models/Counter.dart';
+import './dev_tools_app.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  final appConfig = AppConfig();
+  appConfig.title = "flutter-epics-example";
 
-class MyApp extends StatelessWidget {
-  final Store<AppState> store = Store<AppState>(appReducer,
+  final appStoreConfig = AppStoreConfig<AppState>(appReducer,
       initialState: AppState.initialState(),
       middleware: [
         EpicMiddleware<AppState>(combineEpics<AppState>([counterEpic]))
       ]);
+
+  final app = DevToolsApp<AppState>(appStoreConfig, appConfig);
+
+  app.runDApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new StoreProvider(
-      store: store,
-      child: MaterialApp(
-        title: 'Five',
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('Five'),
-          ),
-          body: MyHomePage(),
+    return MaterialApp(
+      title: 'Five',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Five'),
         ),
+        body: MyHomePage(),
       ),
     );
   }

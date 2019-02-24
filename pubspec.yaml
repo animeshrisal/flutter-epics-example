@@ -23,6 +23,8 @@ dependencies:
   redux: ^3.0.0
   redux_epics: ^0.10.4
   redux_persist_flutter: ^0.8.1
+  redux_remote_devtools: ^0.0.7
+  sensors: ^0.3.5
 
 dev_dependencies:
   flutter_test:
